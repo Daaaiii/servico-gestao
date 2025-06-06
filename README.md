@@ -48,8 +48,8 @@ DATABASE_URL="mysql://usuario:senha@localhost:3306/nome_do_banco"
 Inicialize o banco de dados com os comandos:
 
 ```bash
-npx prisma migrate dev --name init
-npx prisma db seed
+npx prisma migrate dev
+npm run seed
 ```
 
 ### 4. Executar o Projeto

@@ -53,13 +53,13 @@ DATABASE_URL="mysql://usuario:senha@localhost:3306/nome_do_banco"
 
 4. **Crie a migração e gere o client**:
    ```bash
-   npx prisma migrate dev --name init
+   npx prisma migrate dev 
    npx prisma generate
    ```
 
 5. **Popule o banco com o seed (clientes, planos e assinaturas)**:
    ```bash
-   npx prisma db seed
+   npm run seed
    ```
 
 6. **Execute a aplicação**:
