@@ -64,3 +64,4 @@ export class CreateAssinaturaDto {
   @IsOptional()
   descricao: string;
 }
+

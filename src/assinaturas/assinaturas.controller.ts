@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { AssinaturasService } from './assinaturas.service';
-import { TipoAssinatura } from 'src/enum/tipo-assinatura.enum';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TipoAssinatura } from 'enum/tipo-assinatura.enum';
+import { CreateAssinaturaDto } from './dto/create-assinatura.dto';
 
 @ApiTags('Assinaturas')
 @Controller('gestao')
@@ -16,6 +17,10 @@ export class AssinaturasController {
   @ApiResponse({
     status: 400,
     description: 'Erro ao criar assinatura.',
+  })
+  @ApiBody({
+    type: CreateAssinaturaDto,
+    description: 'É necessário informar apenas os campos codPlano e codCli',
   })
   criar(@Body() codCli: number, codPlano: number) {
     return this.assinaturasService.criar(codCli, codPlano);

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AssinaturasService } from './assinaturas.service';
 import { AssinaturasController } from './assinaturas.controller';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { PrismaModule } from 'prisma/prisma.module';
 import { AssinaturasRepository } from './assinaturas.repository';
 
 @Module({

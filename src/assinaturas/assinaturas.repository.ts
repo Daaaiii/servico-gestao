@@ -1,18 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'prisma/prisma.service';
 import { Assinatura } from '@prisma/client';
 import { IAssinaturasRepository } from './assinaturas.interface';
-import { TipoAssinatura } from 'src/enum/tipo-assinatura.enum';
+import { TipoAssinatura } from 'enum/tipo-assinatura.enum';
 import { subDays } from 'date-fns';
 
 @Injectable()
 export class AssinaturasRepository implements IAssinaturasRepository {
   constructor(private readonly prisma: PrismaService) {}
-  async criar(codCli: number, codPlano: number): Promise<Assinatura> {
+  async criarAssinatura(codCli: number, codPlano: number): Promise<Assinatura> {
+    const plano = await this.prisma.plano.findUnique({
+      where: { codigo: codPlano },
+    });
+
+    if (!plano) {
+      throw new Error(`Plano com código ${codPlano} não encontrado.`);
+    }
+
+    const inicioFidelidade = new Date();
+    const fimFidelidade = new Date();
+    fimFidelidade.setFullYear(fimFidelidade.getFullYear() + 1); // +365 dias
+
     return await this.prisma.assinatura.create({
       data: {
-        codCli: codCli,
-        codPlano: codPlano,
+        codCli,
+        codPlano,
+        inicioFidelidade,
+        fimFidelidade,
+        dataUltimoPagamento: new Date(),
+        custoFinal: plano.custoMensal,
+        descricao: 'Assinatura padrão',
       },
     });
   }

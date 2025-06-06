@@ -7,7 +7,7 @@ export class AssinaturasService {
   constructor(private readonly assinaturaRepository: AssinaturasRepository) {}
 
   criar(codCli: number, codPlano: number) {
-    return this.assinaturaRepository.criar(codCli, codPlano);
+    return this.assinaturaRepository.criarAssinatura(codCli, codPlano);
   }
 
   listarPorCliente(codCli: number) {
